@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import Card from './components/Card';
-import Main from './pages';
+import './index.scss';
+import Card from './components/CardItem';
+import Main from './pages/Main';
+import RoutesList from './components/routes/RoutesList';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <Main></Main>
-  </React.StrictMode>
+  <Provider store={store}>
+    <RoutesList />
+  </Provider>
 );

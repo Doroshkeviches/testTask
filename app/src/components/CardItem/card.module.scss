@@ -2,6 +2,8 @@
     border: 1px solid black;
     padding: 20px;
     width: 23%;
+    display: block;
+    margin: 10px;
 }
 .cart-img{
     width: 100%;
@@ -14,7 +16,7 @@
     font-size: 18px;
     font-weight: 600; // change to font mixin
 }
-.author {
+.authors {
     font-size: 14px;
     font-weight: 200;
     color: #979797;
