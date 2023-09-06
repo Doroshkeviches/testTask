@@ -5,7 +5,7 @@ import styles from './headerSearch.module.scss'
 import { setBookListRedux, bookListRedux, setSearchParamsRedux, searchParamsRedux, setTotalCountRedux } from '../../store/toolkitReducer';
 import { useAppDispatch } from '../../store';
 interface Props {
-    setIsLoading: (value: boolean) => void // change to book type
+    setIsLoading: (value: boolean) => void
 
 }
 const HeaderSearch = ({ setIsLoading }: Props) => {
@@ -28,6 +28,7 @@ const HeaderSearch = ({ setIsLoading }: Props) => {
             fetch(url + `?q=${inputValue}${category === 'all' ? '' : `+subject:${category}`}&startIndex=0&orderBy=${sortingBy}&key=${API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data.items)
                     dispatch(setTotalCountRedux(data.totalItems)) 
                     dispatch(setSearchParamsRedux({
                         title: inputValue,
@@ -40,8 +41,8 @@ const HeaderSearch = ({ setIsLoading }: Props) => {
                 })
     }
     return (
-        <div>
-            <Space.Compact>
+        <div className={styles['search-container']}>
+            <Space.Compact className={styles['search-input']}>
                 <Input
                     value={inputValue}
                     onChange={handleSearchInput}

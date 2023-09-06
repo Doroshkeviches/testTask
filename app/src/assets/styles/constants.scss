@@ -1,1 +1,10 @@
 $color-grey: #9e9e9e;
+$color-black: #000000;
+$color-light: #eeeeee;
+$color-red: #c20202;
+
+@mixin font($size, $weight: 400, $color) {
+    font-size: $size;
+    font-weight: $weight;
+    color: $color
+  }

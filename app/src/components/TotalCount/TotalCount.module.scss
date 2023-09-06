@@ -1,0 +1,6 @@
+@import '../../assets/styles/constants.scss';
+
+.count {
+    text-align: center;
+    @include font(20px, 400, $color-black)
+}

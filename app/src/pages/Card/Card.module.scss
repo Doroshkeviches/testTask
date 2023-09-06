@@ -1,33 +1,39 @@
 @import '../../assets/styles/constants.scss';
+
 .book {
     display: flex;
 }
+
 .book-data {
     width: 50%;
     padding: 50px;
 }
+
 .title {
-font-weight: 500;
-font-size: 24px;
-margin-bottom: 30px;
+    @include font(24px,500,$color-black);
+    margin-bottom: 30px;
 }
+
 .description {
-    font-size: 14px;
+    @include font(14px,400,$color-black);
+
 }
+
 .categories {
-    font-weight: 200;
-    color: $color-grey;
+    @include font(14px,200,$color-grey);
     margin-bottom: 50px;
 }
+
 .author-container {
-   display: flex;
-   margin-bottom: 30px;
+    display: flex;
+    margin-bottom: 30px;
 }
+
 .author {
-    color: $color-grey;
-    font-weight: 200;
+    @include font(14px,200,$color-grey);
     margin-right: 5px;
 }
+
 .img-container {
     padding: 50px 100px;
     background-color: $color-grey;

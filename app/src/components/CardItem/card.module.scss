@@ -1,23 +1,36 @@
+@import '../../assets/styles/constants.scss';
+
 .container {
-    border: 1px solid black;
-    padding: 20px;
+    background-color: $color-light;
+    padding: 40px 20px;
     width: 23%;
+    min-width: 200px;
     display: block;
     margin: 10px;
 }
-.cart-img{
+
+.cart-img {
     width: 100%;
-    
+    box-shadow: 2px 0px 20px 5px rgba(0, 0, 0, 0.2);
+
 }
+
 .img-container {
-    padding: 0px 20px;
+    margin-bottom: 30px;
+    background-color: transparent;
+    padding: 0px 50px;
 }
+
 .title {
-    font-size: 18px;
-    font-weight: 600; // change to font mixin
+    @include font(18px, 600, $color-black);
+    margin-bottom: 14px;
 }
+
 .authors {
-    font-size: 14px;
-    font-weight: 200;
-    color: #979797;
+    @include font(16px, 200, $color-grey);
+}
+
+.category {
+    @include font(16px, 200, $color-grey);
+    margin-bottom: 14px;
 }

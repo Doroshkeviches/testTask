@@ -1,4 +1,4 @@
+@import '../../assets/styles/constants.scss';
 .error{
-    font-size: 24px;
-    color: rgb(100, 17, 17);
+    @include font(24px,400,$color-red);
 }

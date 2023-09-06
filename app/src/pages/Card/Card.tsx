@@ -4,12 +4,12 @@ import { API_KEY, url } from '../../constants';
 import Loading from '../../components/Loading';
 import { Image } from 'antd';
 import styles from './Card.module.scss'
+import { Book } from '../../types/types';
 
 const Card = () => {
-    const [book, setBook] = useState<any>() // change to book type
+    const [book, setBook] = useState<Book>() 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const { id } = useParams()
-    console.log(id)
     useEffect(() => {
         setIsLoading(true)
         fetch(url + `/${id}?key=${API_KEY}`)
@@ -17,7 +17,6 @@ const Card = () => {
             .then(data => {
                 setIsLoading(false)
                 setBook(data)
-                console.log(data)
             })
     }, [])
 

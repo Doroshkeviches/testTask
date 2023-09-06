@@ -1,13 +1,16 @@
 import React from 'react'
 import styles from './TotalCount.module.scss'
 import { useSelector } from 'react-redux'
-import { totalCountRedux } from '../../store/toolkitReducer'
+import { bookListRedux, totalCountRedux } from '../../store/toolkitReducer'
 
 export default function TotalCount() {
-    const totalCount = useSelector(totalCountRedux)
+  const totalCount = useSelector(totalCountRedux)
+  const bookList = useSelector(bookListRedux)
 
   return (
-    <div>Книг найдено {totalCount}</div>
+    <>
+      {bookList?.length && <div className={styles['count']}>Книг найдено {totalCount}</div>}
+    </>
 
   )
 }

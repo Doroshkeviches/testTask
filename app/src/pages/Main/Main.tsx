@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import TotalCount from '../../components/TotalCount'
 
 export default function Main() {
-    // const [bookList, setBookList] = useState([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const bookList = useSelector(bookListRedux)
 

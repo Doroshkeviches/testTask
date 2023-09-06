@@ -3,7 +3,7 @@ import styles from './ButtonLoadBook.module.scss'
 import { Button } from 'antd';
 import { API_KEY, url } from '../../constants';
 import { useAppDispatch } from '../../store';
-import { bookListRedux, searchParamsRedux, setBookListRedux, setSearchParamsRedux } from '../../store/toolkitReducer';
+import { bookListRedux, searchParamsRedux, setBookListRedux, setSearchParamsRedux, setTotalCountRedux } from '../../store/toolkitReducer';
 import { useSelector } from 'react-redux';
 
 interface Props {
@@ -19,23 +19,31 @@ export default function ButtonLoadBook({ setIsLoading }: Props) {
     const handleClick = () => {
         console.log(url + `?q=${title}&maxResults=${maxResults}&startIndex=${startIndex}&orderBy=${sortingBy}&key=${API_KEY}`)
         setIsLoading(true)
-            fetch(url + `?q=${title}${category === 'all' ? '' : `+subject:${category}`}&maxResults=${maxResults}&startIndex=${startIndex}&orderBy=${sortingBy}&key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    dispatch(setBookListRedux([...bookList, ...data.items])) 
-                    dispatch(setSearchParamsRedux({
-                        title,
-                        category,
-                        sortingBy,
-                        startIndex: startIndex + maxResults
-                    }))
-                    setIsLoading(false)
-                })
+        fetch(url + `?q=${title}${category === 'all' ? '' : `+subject:${category}`}&maxResults=${maxResults}&startIndex=${startIndex}&orderBy=${sortingBy}&key=${API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+                dispatch(setTotalCountRedux(data.totalItems))
+                dispatch(setBookListRedux([...bookList, ...data.items]))
+                dispatch(setSearchParamsRedux({
+                    title,
+                    category,
+                    sortingBy,
+                    startIndex: startIndex + maxResults
+                }))
+                setIsLoading(false)
+            })
     }
     return (
-        <Button
-        onClick={handleClick}
-        type="primary">Load more...</Button>
+        <>
+            {
+                bookList?.length && <div className={styles['button']}>
+                    <Button
+                        onClick={handleClick}
+                        type="primary">Load more...</Button>
+                </div>
+            }
+        </>
+
     )
 }
 
