@@ -7,7 +7,7 @@ export const routes = [
         component: Main
     },
     {
-        path: '/card:id',
+        path: '/card/:id',
         component: Card
     },
 ]

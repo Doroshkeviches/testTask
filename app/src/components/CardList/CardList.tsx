@@ -16,6 +16,7 @@ const CardList = ({bookList}: any) => { // change to book[] type
                     image={image}
                     category={category}
                     authors={authors}
+                    id={it.id}
 
                 />
             )

@@ -5,12 +5,13 @@ interface Props {
   title: string,
   image: string,
   category: string,
-  authors: string[]
+  authors: string[],
+  id: string,
 
 }
-export default function CardItem({ title, image, category, authors }: Props) {
+export default function CardItem({ title, image, category, authors, id }: Props) {
   return (
-    <Link to={'id'} className={styles['container']}>
+    <Link to={`/card/${id}`} className={styles['container']}>
       <div className={styles['img-container']}>
         <img className={styles['cart-img']} src={image} alt="" />
       </div>
@@ -19,7 +20,7 @@ export default function CardItem({ title, image, category, authors }: Props) {
 
       <div className={styles['authors']}>{authors?.map((author: string) => {
         return (
-          <div>{author}</div>
+          <div key={author}>{author}</div>
         )
       })}</div>
     </Link>

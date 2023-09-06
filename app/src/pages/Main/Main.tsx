@@ -4,15 +4,22 @@ import HeaderSearch from '../../components/headerSearch'
 import Loading from '../../components/Loading'
 import CardItem from '../../components/CardItem'
 import CardList from '../../components/CardList'
+import ButtonLoadBook from '../../components/ButtonLoadBooks'
+import { bookListRedux, totalCountRedux } from '../../store/toolkitReducer'
+import { useSelector } from 'react-redux';
+import TotalCount from '../../components/TotalCount'
+
 export default function Main() {
-    const [bookList, setBookList] = useState([])
+    // const [bookList, setBookList] = useState([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const bookList = useSelector(bookListRedux)
 
     return (
         <div>
-            <HeaderSearch setState={setBookList} setIsLoading={setIsLoading} />
+            <HeaderSearch setIsLoading={setIsLoading} />
+            <TotalCount/>
             <CardList bookList={bookList} />
-            {isLoading && <Loading />}
+            {isLoading ? <Loading /> : <ButtonLoadBook setIsLoading={setIsLoading}/>}
         </div>
     )
 }

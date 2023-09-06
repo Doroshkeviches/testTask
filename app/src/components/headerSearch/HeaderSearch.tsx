@@ -2,21 +2,17 @@ import React, { useState } from 'react';
 import { Input, Button, Space, Select } from 'antd'
 import { API_KEY, categories, url, sorting } from '../../constants';
 import styles from './headerSearch.module.scss'
-import {  setBookListRedux, bookListRedux } from '../../store/toolkitReducer';
+import { setBookListRedux, bookListRedux, setSearchParamsRedux, searchParamsRedux, setTotalCountRedux } from '../../store/toolkitReducer';
 import { useAppDispatch } from '../../store';
-import { useSelector } from 'react-redux';
 interface Props {
-    setState: (data: any) => void // change to book type
     setIsLoading: (value: boolean) => void // change to book type
 
 }
-const HeaderSearch = ({ setState, setIsLoading }: Props) => {
+const HeaderSearch = ({ setIsLoading }: Props) => {
     const dispatch = useAppDispatch()
-    const bookList1 = useSelector(bookListRedux)
     const [inputValue, setInputValue] = useState<string>('')
     const [category, setCategory] = useState('all')
     const [sortingBy, setSortingBy] = useState('relevance')
-    console.log(bookList1)
     const handleCategoryChange = (value: string) => {
         setCategory(value)
     }
@@ -26,28 +22,22 @@ const HeaderSearch = ({ setState, setIsLoading }: Props) => {
     const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)
     }
-
+    const defaultMaxResult = 10
     const handleSearch = () => {
         setIsLoading(true)
-        if (category === 'all') {
-            console.log('all')
-            fetch(url + `?q=${inputValue}&orderBy=${sortingBy}&key=${API_KEY}`)
+            fetch(url + `?q=${inputValue}${category === 'all' ? '' : `+subject:${category}`}&startIndex=0&orderBy=${sortingBy}&key=${API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
+                    dispatch(setTotalCountRedux(data.totalItems)) 
+                    dispatch(setSearchParamsRedux({
+                        title: inputValue,
+                        category,
+                        sortingBy,
+                        startIndex: defaultMaxResult
+                    }))
                     dispatch(setBookListRedux(data.items))
-                    setState(data.items)
                     setIsLoading(false)
                 })
-        } else {
-            fetch(url + `?q=${inputValue}+subject:${category}&orderBy=${sortingBy}&key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    dispatch(setBookListRedux(data.items))
-                    console.log(data)
-                    setState(data.items)
-                    setIsLoading(false)
-                })
-        }
     }
     return (
         <div>
@@ -82,7 +72,6 @@ const HeaderSearch = ({ setState, setIsLoading }: Props) => {
                     />
                 </div>
             </div>
-            Main
         </div>
     )
 };
