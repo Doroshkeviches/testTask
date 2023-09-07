@@ -55,7 +55,7 @@ const HeaderSearch = ({ setIsLoading }: Props) => {
             </Space.Compact>
             <div className={styles['filter-container']}>
                 <div className={styles['categories-container']}>
-                    <div>Categories</div>
+                    <div className={styles['text']}>Categories</div>
                     <Select
                         onChange={handleCategoryChange}
                         style={{ width: 120 }}
@@ -64,7 +64,7 @@ const HeaderSearch = ({ setIsLoading }: Props) => {
                     />
                 </div>
                 <div className={styles['sorting-container']}>
-                    <div>Sorting by</div>
+                    <div className={styles['text']}>Sorting by</div>
                     <Select
                         onChange={handleSortingChange}
                         style={{ width: 120 }}

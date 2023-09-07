@@ -15,6 +15,7 @@ const Card = () => {
         fetch(url + `/${id}?key=${API_KEY}`)
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 setIsLoading(false)
                 setBook(data)
             })

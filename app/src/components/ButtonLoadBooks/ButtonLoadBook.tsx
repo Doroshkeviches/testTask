@@ -36,11 +36,13 @@ export default function ButtonLoadBook({ setIsLoading }: Props) {
     return (
         <>
             {
-                bookList?.length && <div className={styles['button']}>
+                bookList?.length ? <div className={styles['button']}>
                     <Button
                         onClick={handleClick}
                         type="primary">Load more...</Button>
                 </div>
+                :
+                null
             }
         </>
 

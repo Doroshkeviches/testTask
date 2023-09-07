@@ -8,6 +8,7 @@ import ButtonLoadBook from '../../components/ButtonLoadBooks'
 import { bookListRedux, totalCountRedux } from '../../store/toolkitReducer'
 import { useSelector } from 'react-redux';
 import TotalCount from '../../components/TotalCount'
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary'
 
 export default function Main() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -15,10 +16,12 @@ export default function Main() {
 
     return (
         <div>
-            <HeaderSearch setIsLoading={setIsLoading} />
-            <TotalCount/>
+            <ErrorBoundary>
+                <HeaderSearch setIsLoading={setIsLoading} />
+            </ErrorBoundary>
+            <TotalCount />
             <CardList bookList={bookList} />
-            {isLoading ? <Loading /> : <ButtonLoadBook setIsLoading={setIsLoading}/>}
+            {isLoading ? <Loading /> : <ButtonLoadBook setIsLoading={setIsLoading} />}
         </div>
     )
 }
