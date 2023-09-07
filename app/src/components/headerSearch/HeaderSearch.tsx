@@ -5,10 +5,10 @@ import styles from './headerSearch.module.scss'
 import { setBookListRedux, bookListRedux, setSearchParamsRedux, searchParamsRedux, setTotalCountRedux } from '../../store/toolkitReducer';
 import { useAppDispatch } from '../../store';
 interface Props {
-    setIsLoading: (value: boolean) => void
-
+    setIsLoading: (value: boolean) => void,
+    setError: (value: boolean) => void
 }
-const HeaderSearch = ({ setIsLoading }: Props) => {
+const HeaderSearch = ({ setIsLoading, setError }: Props) => {
     const dispatch = useAppDispatch()
     const [inputValue, setInputValue] = useState<string>('')
     const [category, setCategory] = useState('all')
@@ -25,20 +25,22 @@ const HeaderSearch = ({ setIsLoading }: Props) => {
     const defaultMaxResult = 10
     const handleSearch = () => {
         setIsLoading(true)
-            fetch(url + `?q=${inputValue}${category === 'all' ? '' : `+subject:${category}`}&startIndex=0&orderBy=${sortingBy}&key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data.items)
-                    dispatch(setTotalCountRedux(data.totalItems)) 
-                    dispatch(setSearchParamsRedux({
-                        title: inputValue,
-                        category,
-                        sortingBy,
-                        startIndex: defaultMaxResult
-                    }))
-                    dispatch(setBookListRedux(data.items))
-                    setIsLoading(false)
-                })
+        fetch(url + `?q=${inputValue}${category === 'all' ? '' : `+subject:${category}`}&startIndex=0&orderBy=${sortingBy}&key=${API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.items)
+                dispatch(setTotalCountRedux(data.totalItems))
+                dispatch(setSearchParamsRedux({
+                    title: inputValue,
+                    category,
+                    sortingBy,
+                    startIndex: defaultMaxResult
+                }))
+                dispatch(setBookListRedux(data.items))
+                setIsLoading(false)
+            })
+            .catch(() => setError(true))
+
     }
     return (
         <div className={styles['search-container']}>

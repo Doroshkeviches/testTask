@@ -9,7 +9,7 @@ export default function TotalCount() {
 
   return (
     <>
-      <div className={styles['count']}>Книг найдено {totalCount}</div>
+      {bookList.length ? <div className={styles['count']}>Книг найдено {totalCount}</div> : null}
     </>
 
   )

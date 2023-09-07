@@ -7,9 +7,10 @@ import { bookListRedux, searchParamsRedux, setBookListRedux, setSearchParamsRedu
 import { useSelector } from 'react-redux';
 
 interface Props {
-    setIsLoading: (value: boolean) => void
+    setIsLoading: (value: boolean) => void,
+    setError: (value: boolean) => void
 }
-export default function ButtonLoadBook({ setIsLoading }: Props) {
+export default function ButtonLoadBook({ setIsLoading, setError }: Props) {
     const { title, category, sortingBy, startIndex } = useSelector(searchParamsRedux)
     const bookList = useSelector(bookListRedux)
 
@@ -32,6 +33,7 @@ export default function ButtonLoadBook({ setIsLoading }: Props) {
                 }))
                 setIsLoading(false)
             })
+            .catch(() => setError(true))
     }
     return (
         <>
@@ -41,8 +43,8 @@ export default function ButtonLoadBook({ setIsLoading }: Props) {
                         onClick={handleClick}
                         type="primary">Load more...</Button>
                 </div>
-                :
-                null
+                    :
+                    null
             }
         </>
 

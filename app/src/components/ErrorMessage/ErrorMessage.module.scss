@@ -1,0 +1,6 @@
+@import '../../assets/styles/constants.scss';
+
+.text {
+    text-align: center;
+    @include font(22px, 400, $color-red)
+}
